@@ -9,7 +9,7 @@
  * Click Go button to fetch the result.
  * Alternatively, you can also make an API call: `http://localhost:10000/crawl?url=https://www.google.com/`
  * Sample API reponse looks like : 
- 	```json
+ ```json
    {
    "Title":"W3Schools Online Web Tutorials",
    "HtmlVersion":"HTML5",
