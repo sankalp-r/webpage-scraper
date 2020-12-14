@@ -25,7 +25,7 @@
       "h6":0
    },
    "IsLoginFormPresent":true
-}
+  }
 ```
  * Note: app has a timeout of 10s. If the response doesnt come back within 10s, you will get error.
 
