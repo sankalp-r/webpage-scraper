@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Web scraper</title>
+    <style>
+        #spinner{
+            visibility: hidden;
+            width: 80px;
+            height: 80px;
+
+            border: 2px solid #f3f3f3;
+            border-top:3px solid #f25a41;
+            border-radius: 100%;
+
+            position: absolute;
+            top:0;
+            bottom:0;
+            left:0;
+            right: 0;
+            margin: auto;
+
+            animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            } to {
+                  transform: rotate(360deg);
+              }
+        }
+
+        #spinner.show {
+            visibility: visible;
+        }
+
+        ul{
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+    </style>
+</head>
+<body>
+<div align="center">
+    <h1>Web scraper</h1>
+    <form id="myForm" action="#" onsubmit="myFunction();return false">
+        <input type="text" id="url" name="url">
+        <input type="submit" value="Go"/>
+    </form>
+    <br>
+</div>
+<div id="spinner"></div>
+<div align="center">
+    <p id="crawlresponse"></p>
+</div>
+<script>
+    const spinner = document.getElementById("spinner");
+    function showSpinner() {
+        spinner.className = "show";
+        setTimeout(() => {
+            spinner.className = spinner.className.replace("show", "");
+        }, 15000);
+    }
+    function hideSpinner() {
+      spinner.className = spinner.className.replace("show", "");
+    }
+    function myFunction() {
+        showSpinner();
+        fetch('/crawl?url='+document.getElementById("myForm").elements[0].value).
+        then(response=>{
+            if (response.ok){
+                return  response.json();
+            } else {
+                throw new Error(response.statusText);
+            }
+           }).then(data=> {
+            hideSpinner();
+            document.getElementById("crawlresponse").innerHTML = "Title: " + data["Title"] +"<br>" +
+            "HtmlVersion: " + data["HtmlVersion"] + "<br>" +
+                "ExternalLinks: " + data["ExternalLinks"] + "<br>" +
+                "InternalLinks: " + data["InternalLinks"] + "<br>" +
+                "InaccessibleLinks: " + data["InaccessibleLinks"] + "<br>" +
+                "Headings: " + "<br>" +
+                "<ul>"
+                + "<li>" + "h1: "+data["Headings"]["h1"] +"</li>"
+                + "<li>" + "h2: "+data["Headings"]["h2"] +"</li>"
+                + "<li>" + "h3: "+data["Headings"]["h3"] +"</li>"
+                + "<li>" + "h4: "+data["Headings"]["h4"] +"</li>"
+                + "<li>" + "h5: "+data["Headings"]["h5"] +"</li>"
+                + "<li>" + "h6: "+data["Headings"]["h6"] + "</li>" + "</ul>" + "<br>"
+
+                + "IsLoginFormPresent: " + data["IsLoginFormPresent"];
+
+
+        }).catch((error) => {
+            document.getElementById("crawlresponse").innerHTML = error;
+        });
+    }
+</script>
+</body>
+</html>
