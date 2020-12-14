@@ -8,8 +8,9 @@
  * Enter the Url you want to scrape in the input box like: `https://www.google.com/` (Please enter full Url with http or https)
  * Click Go button to fetch the result.
  * Alternatively, you can also make an API call: `http://localhost:10000/crawl?url=https://www.google.com/`
- * Sample Api reponse looks like : 
- 	```{
+ * Sample API reponse looks like : 
+ 	```json
+   {
    "Title":"W3Schools Online Web Tutorials",
    "HtmlVersion":"HTML5",
    "ExternalLinks":8,
@@ -24,7 +25,8 @@
       "h6":0
    },
    "IsLoginFormPresent":true
-}```
+}
+```
  * Note: app has a timeout of 10s. If the response doesnt come back within 10s, you will get error.
 
 ### Thought process
